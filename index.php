@@ -47,8 +47,8 @@
                     <div class="profile-pic"><img class="circle" src="/images/profile/hugo.jpg" alt=""></div>
                 </div>
                 <div class="header__badges">
-                    <div class="badge-item rounded-50" data-popup-card="true"><div class="highlight-badge"></div><i class="material-icons">notifications</i></div>
-                    <div class="badge-item rounded-50"><div class="highlight-badge"></div><i class="material-icons">chat</i></div>
+                    <div class="badge-item rounded-50" data-popup-card="true" data-dy-view="notifications"><div class="highlight-badge"></div><i class="material-icons">notifications</i></div>
+                    <div class="badge-item rounded-50" data-popup-card="true" data-dy-view="chat"><div class="highlight-badge"></div><i class="material-icons">chat</i></div>
                 </div>
             </div>
         </div>

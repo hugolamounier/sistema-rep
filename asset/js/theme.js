@@ -184,7 +184,7 @@ function hideEffect(element, callback)
     }, 100, function () { 
         $(this).css({
             "top": 0,
-            "left": 0
+            "right": 0
         });
         $(this).hide();
         $(this).html("");
@@ -214,7 +214,7 @@ function hideEffect(element, callback)
                                     $(".popup-card").html(data);
                                     $(".popup-card").animate({
                                         top: $("header").height() + 10,
-                                        left: offset.left - $(element).width() - $(element).css("padding-right").replace(/[^-\d\.]/g, '') - $("header .header__wrapper .right").css("padding-right").replace(/[^-\d\.]/g, '')
+                                        right: $(window).width() - offset.left - $(element).width() - $(element).css("padding-right").replace(/[^-\d\.]/g, '') - $("header .header__wrapper .right").css("padding-right").replace(/[^-\d\.]/g, '')
                                     }, 1, function(){
                                         $(element).addClass("active");
                                         showEffect(".popup-card");
@@ -238,7 +238,7 @@ function hideEffect(element, callback)
                             $(".popup-card").html(data);
                             $(".popup-card").animate({
                                 top: $("header").height() + 10,
-                                left: offset.left - $(element).width() - $(element).css("padding-right").replace(/[^-\d\.]/g, '') - $("header .header__wrapper .right").css("padding-right").replace(/[^-\d\.]/g, '')
+                                right: $(window).width() - offset.left - $(element).width() - $(element).css("padding-right").replace(/[^-\d\.]/g, '') - $("header .header__wrapper .right").css("padding-right").replace(/[^-\d\.]/g, '')
                             }, 1, function(){
                                 $(element).addClass("active");
                                 showEffect(".popup-card");
