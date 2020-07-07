@@ -5,8 +5,7 @@ require __DIR__."/config.php";
 require ROOT_DIR."/class//Helper.class.php";
 
 // Database Connection
-$conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME,
-        ROOT_DIR."/key_hugolamounier.com.br.pem", ROOT_DIR."/key_hugolamounier.com.br.pem", ROOT_DIR."/key_hugolamounier.com.br.pem");
+$conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME, NULL, NULL, ROOT_DIR."/BaltimoreCyberTrustRoot.crt.pem");
 
 $responseObj = new stdClass();
 $responseObj->status = null;

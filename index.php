@@ -6,7 +6,7 @@
     require (ROOT_DIR."/class//Helper.class.php");
 
     $conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME,
-    ROOT_DIR."/key_hugolamounier.com.br.pem", ROOT_DIR."/key_hugolamounier.com.br.pem", ROOT_DIR."/key_hugolamounier.com.br.pem");
+    NULL, NULL, ROOT_DIR."/BaltimoreCyberTrustRoot.crt.pem");
     
 ?>
 <!DOCTYPE html>
@@ -48,7 +48,7 @@
         {
             Helper::logout();
         }
-        
+
         if(Helper::isLogged($conn, AUTH_HASH))
         {
             require (ROOT_DIR."/routing.php");

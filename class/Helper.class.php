@@ -3,7 +3,7 @@ class Helper{
     public static function mysqlConnect($db_server, $db_username, $db_password, $db_name, $key = NULL, $cert = NULL, $ca = NULL)
     {
         $connection = new MySQLi();
-        // $connection->ssl_set($key, $cert, $ca, NULL, NULL);
+        // $connection->ssl_set($key, $key, $ca, NULL, NULL);
         $connection->real_connect($db_server, $db_username, $db_password, $db_name);
         if($connection->connect_error)
         {
