@@ -1,3 +1,14 @@
+<?php
+    require 'config.php';
+
+    // Classes
+    require (ROOT_DIR."/class//Route.class.php");
+    require (ROOT_DIR."/class//Helper.class.php");
+
+    $conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME,
+    ROOT_DIR."/key_hugolamounier.com.br.pem", ROOT_DIR."/key_hugolamounier.com.br.pem", ROOT_DIR."/key_hugolamounier.com.br.pem");
+    
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -32,102 +43,20 @@
 </head>
 
 <body>
-    
-    <!-- Header -->
-    <header class="noselect">
-        <div class="header__wrapper">
-            <div class="left">
-                <div class="menu-collapse rounded-50">
-                    <i class="material-icons">menu</i>
-                </div>
-            </div>
-            <div class="right">
-                <div class="logged-user clickable" data-popup-card="true" data-dy-view="user_info">
-                    <div class="user" ><span>Olá, &nbsp;<b>Hugo</b></span></div>
-                    <div class="profile-pic"><img class="circle" src="/images/profile/hugo.jpg" alt=""></div>
-                </div>
-                <div class="header__badges">
-                    <div class="badge-item rounded-50" data-popup-card="true" data-dy-view="notifications"><div class="highlight-badge"></div><i class="material-icons">notifications</i></div>
-                    <div class="badge-item rounded-50" data-popup-card="true" data-dy-view="chat"><div class="highlight-badge"></div><i class="material-icons">chat</i></div>
-                </div>
-            </div>
-        </div>
-
-    </header>
-
-    <!-- Navegation -->
-    <nav id="desktop" class="z-depth-2 noselect">
-        <div class="logo-app rounded">
-            <span>ic</span>
-        </div>
-        <ul>
-            <li class="no-hover"><div class="menu-separetor"><div class="separetor"></div><div class="separetor"></div><div class="separetor"></div></div></li>
-        </ul>
-        <ul class="nav__groups">
-            <li data-menu-name="República" class="active"><i class="icon fa-home"></i></li>
-            <li><i class="icon fa-home"></i></li>
-        </ul>
-
-        <ul class="collapisible-menu">
-            <li class="group"><span>Teste</span></li>
-            <li><div class="menu-op"><i class="icon fa-address-book"></i> <div>Teste</div></li>
-            <li>
-                <div class="menu-op"><i class="icon fa-address-book"></i> <div>Teste</div></div>
-                <ul>
-                    <li><div>Teste</div></li>
-                    <li><div>Teste 2</div></li>
-                </ul>
-            </li>
-            <li><div class="menu-op"><i class="icon fa-address-book"></i> <div>Teste</div></li>
-        </ul>
-    </nav>
-    
-    <nav id="mobile" class="z-depth-2 noselect">
-    <div class="logo-app rounded">
-            <span>ic</span>
-        </div>
-        <ul>
-            <li class="no-hover"><div class="menu-separetor"><div class="separetor"></div><div class="separetor"></div><div class="separetor"></div></div></li>
-        </ul>
-
-        <ul class="collapisible-menu">
-            <li class="group"><span>Teste</span></li>
-            <li><div class="menu-op"><i class="icon fa-address-book"></i> <div>Teste</div></li>
-            <li>
-                <div class="menu-op"><i class="icon fa-address-book"></i> <div>Teste</div></div>
-                <ul>
-                    <li><div>Teste</div></li>
-                    <li><div>Teste 2</div></li>
-                </ul>
-            </li>
-            <li><div class="menu-op"><i class="icon fa-address-book"></i> <div>Teste</div></li>
-        </ul>
-    </nav>
-    
-    <main>
-        <section class="page">
-            <div class="header">
-                <div class="header__title">
-                    <span>Nome da Página</span>
-                    <div class="breadcrumbs">
-                        <a href=""><i class="icon fa-home"></i></a>
-                        <span class="breadcrumbs-separator"></span>
-                        <a >Teste</a>
-                        <span class="breadcrumbs-separator"></span>
-                        <a >Teste</a>
-                    </div>
-                </div>
-                <div class="header__toolbar">
-                    <div class="header__btn rounded-sm tooltipped" data-position="bottom" data-tooltip="Teste"><i class="icon fa-home"></i></div>
-                    <div class="header__btn rounded-sm"><i class="icon fa-home"></i></div>
-                    <div class="header__btn rounded-sm"><span>Adicionar algo</span></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="popup-card z-depth-3 rounded-bottom-sm">
-    </div>
+    <?php
+        if (isset($_GET["logout"]))
+        {
+            Helper::logout();
+        }
+        
+        if(Helper::isLogged($conn, AUTH_HASH))
+        {
+            require (ROOT_DIR."/routing.php");
+            require (ROOT_DIR."/layout//body.php");
+        }else{
+            require (ROOT_DIR."/views/login.php");
+        }
+    ?>
 </body>
 <script src="/asset/js/theme.js" crossorigin="anonymous"></script>
 <script>
