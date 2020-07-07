@@ -37,3 +37,14 @@
 
     <div class="popup-card z-depth-3 rounded-bottom-sm">
     </div>
+    
+<script>
+$('.collapisible-menu ul').hide();
+$('.collapisible-menu').hide();
+$(document).ready(function(){
+    $("*[data-popup-card=true]").popUpCard();
+    $("nav").menu();
+    $("nav#mobile").hide();
+    $('.tooltipped').tooltip();
+});
+</script>

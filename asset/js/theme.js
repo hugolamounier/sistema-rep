@@ -12,7 +12,7 @@ function auth(element, form)
         cache: false,
         contentType: false,
         processData: false,
-        timeout: 3000,
+        timeout: 10000,
         beforeSend: function(jqXHR, settings){
             clearInputError($("*[data-input-name=userEmail]"));
             clearInputError($("*[data-input-name=userPassword]"));
@@ -118,6 +118,11 @@ function closeLoadingOnButton(element)
     }, 600, function(){
         element.html(element_content);
         element_content = null;
+        element.addClass("noHover");
+        if(element.hasClass("simulateHover"))
+        {
+            $("a[data-action=login]").removeClass("simulateHover");
+        }
     });
 }
 

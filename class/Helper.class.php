@@ -86,7 +86,7 @@ class Helper{
     {
         session_destroy();
         $_SESSION["userEmail"] = "";
-        header("location:/index.php");
+        header("location:/");
     }
 
 

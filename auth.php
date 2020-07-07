@@ -22,8 +22,6 @@ if(!isset($_POST["userEmail"]) || !isset($_POST["userPassword"]))
 $userEmail = $_POST["userEmail"];
 $userPassword = $_POST["userPassword"];
 
-sleep(1);
-
 if(Helper::login($conn, $userEmail, $userPassword, AUTH_HASH))
 {
     $responseObj->status = true;
