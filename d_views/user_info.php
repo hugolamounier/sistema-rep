@@ -18,5 +18,5 @@
 </div>
 
 <div class="popup-card__footer">
-    <a class="waves-effect waves-light btn-small" href="?logout=1"><i class="icon fa-sign-out-alt left"></i>  Sair</a>
+    <a data-button-name="logout" class="waves-effect waves-light btn-small"><i class="icon fa-sign-out-alt left"></i>  Sair</a>
 </div>

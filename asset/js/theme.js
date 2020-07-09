@@ -64,13 +64,16 @@ $(".input-form div > input").focusout(function(){
 
 function returnInputError(element)
 {
-    element.find("input").addClass("error");
-    element.find(".input-flag").html("<i class=\"icon fa-exclamation-circle\"></i>");
+    element.find("input").addClass("error").promise().done(function(){
+        element.find(".input-flag").html("<i class=\"icon fa-exclamation-circle\"></i>");
+    });
+    
 }
 function clearInputError(element)
 {
-    element.find("input").removeClass("error");
-    element.find(".input-flag").html("");
+    element.find("input").removeClass("error").promise().done(function(){
+        element.find(".input-flag").html("");
+    });
 }
 
 // End Form input
@@ -125,8 +128,16 @@ function closeLoadingOnButton(element)
         }
     });
 }
-
+function loadingOnButton(element) // element se refere ao i
+{
+    $(element).removeClass().addClass("icon-loading").html("<div class=\"lds-dual-ring\"></div>");
+}
+function hideLoadingOnButton(element, icon)
+{
+    $(element).addClass("icon "+icon);
+}
 // end loading
+
 // Navegation
 var timeout;
 (function( $ ){
@@ -367,3 +378,29 @@ function loadPopUpContent(async_load, right_value, element)
     };
 }(jQuery));
 // End popup-card
+
+
+// Layout
+function displayHiddenFlex(element, callback)
+{
+    element.css({
+        "opacity": "0",
+        "display": "flex"
+    }).promise.done(function(){
+        typeof callback == "function" && callback();
+    });
+}
+
+
+// Actions
+
+$(document).on("click", "a[data-button-name!='']", function(e){
+    let button_name = $(this).data("button-name");
+    switch(button_name)
+    {
+        case 'logout':
+            loadingOnButton($(this).find("i"));
+            window.location.href='?logout=1';
+        break;
+    }
+})

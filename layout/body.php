@@ -1,3 +1,4 @@
+
 <!-- Header -->
 <header class="noselect">
         <div class="header__wrapper">
@@ -8,7 +9,7 @@
             </div>
             <div class="right">
                 <div class="logged-user clickable waves-effect waves-purple" data-popup-card="true" data-dy-view="user_info">
-                    <div class="user" ><span>Olá, &nbsp;<b>Hugo</b></span></div>
+                    <div class="user hide-on-small-only"><span>Olá, &nbsp;<b>Hugo</b></span></div>
                     <div class="profile-pic"><img class="circle" src="/images/profile/hugo.jpg" alt=""></div>
                 </div>
                 <div class="header__badges">
@@ -39,12 +40,13 @@
     </div>
     
 <script>
+$(".loading_refresh").hide();
 $('.collapisible-menu ul').hide();
 $('.collapisible-menu').hide();
+$("nav#mobile").hide();
 $(document).ready(function(){
     $("*[data-popup-card=true]").popUpCard();
     $("nav").menu();
-    $("nav#mobile").hide();
     $('.tooltipped').tooltip();
-});
+});  
 </script>

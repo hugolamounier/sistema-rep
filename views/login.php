@@ -1,11 +1,12 @@
 <section id="login">
     <div class="login_wrapper blur">
         <div class="right rounded-sm">
-            <div class="logo-app rounded">
+            <div class="logo-app rounded noselect">
                 <span>ic</span>
             </div>
             <div class="menu-separetor"><div class="separetor"></div><div class="separetor"></div><div class="separetor"></div></div>
             <div class="login-area">
+                <h1>Entrar</h1>
                 <p>Para continuar, entre com suas credenciais</p>
                 <form id="loginForm">
                     <div class="input-form rounded z-depth-1" data-input-name="userEmail">
@@ -30,7 +31,7 @@
                 <div class="menu-separetor"><div class="separetor"></div><div class="separetor"></div><div class="separetor"></div></div>
                 <div class="break"></div>
                 <div class="login-options">
-                    <a data-action="login" class=" btn-large">Entrar</a>
+                    <a data-action="login" class="waves-effect waves-light btn-large">Entrar</a>
                     <a class="waves-effect waves-light btn-large">Cadastrar</a>
                 </div>
             </div>

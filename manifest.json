@@ -1,0 +1,52 @@
+{
+    "name": "Sistema de Gerenciamento de Repúblicas",
+    "short_name": "iSIP",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#242939",
+    "theme_color": "#242939", 
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/asset/images/logo-72x72.png",
+        "type": "image/png", 
+        "sizes": "72x72"
+      },
+      {
+        "src": "/asset/images/logo-96x96.png",
+        "type": "image/png",
+        "sizes": "96x96"
+      },
+      {
+        "src": "/asset/images/logo-128x128.png",
+        "type": "image/png",
+        "sizes": "128x128"
+      },
+      {
+        "src": "/asset/images/logo-144x144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "/asset/images/logo-152x152.png",
+        "type": "image/png",
+        "sizes": "152x152"
+      },
+      {
+        "src": "/asset/images/logo-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/asset/images/logo-384x384.png",
+        "type": "image/png",
+        "sizes": "384x384"
+      }, 
+      {
+        "src": "/asset/images/logo-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }
