@@ -1,16 +1,109 @@
+
 $(".error_handler").hide();
-var NETWORK_STATE = true;
-window.addEventListener('online', function(e){
-    if(!NETWORK_STATE)
+
+const isAppFullScreen = () => {
+    let screenHeight = window.screen.height;
+    let viewPortHeight = window.innerHeight;
+    
+    if(viewPortHeight == screenHeight){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// NETOWRK_STATE change listener
+c = {
+    NETWORK_STATE_I: true,
+    NETWORK_STATE_LISTENER: function(val) {},
+    set NETWORK_STATE(val){
+        this.NETWORK_STATE_I = val;
+        this.NETWORK_STATE_LISTENER(val);
+    },
+    get NETWORK_STATE(){
+        return this.NETWORK_STATE_I;
+    },
+    registerListener: function(listener){
+        this.NETWORK_STATE_LISTENER = listener;
+    }
+};
+// end
+
+window.addEventListener('load', (e) => {
+    // Network initial state
+    if(navigator.onLine === false){
+        c.NETWORK_STATE = false;
+    }
+    
+});
+
+window.addEventListener('resize', (e) => {
+
+});
+
+
+
+// Network state handler
+c.registerListener(function(val){
+    setTimeout(function(){
+        if(val == false)
+        {
+            let errorMsg = "Você está sem conexão com a internet.<br><br>Tentando reconectar";
+            errorHandling(errorMsg);
+        }else if(val == true){
+            clearError();
+        }
+    }, 500);
+});
+if(navigator.onLine == false)
+{
+    c.NETWORK_STATE = false;
+}
+window.addEventListener('online', (e) => {
+    if(c.NETWORK_STATE == false)
     {
-        clearError();
+        c.NETWORK_STATE = true;
     }
 });
-window.addEventListener('offline', function(e){
-     NETWORK_STATE = false;
-     let errorMsg = "Você está sem conexão com a internet.<br><br>Tentando reconectar";
-     errorHandling(errorMsg);
+window.addEventListener('offline', (e) => {
+     if(c.NETWORK_STATE == true)
+     {
+        c.NETWORK_STATE = false;
+     }
 });
+
+// network state
+
+// PWA Install
+
+window.addEventListener('beforeinstallprompt', function(event) {
+    console.log("install fired");
+});
+
+// 
+
+
+// Handle back button
+window.addEventListener('load', function(e){
+    window.history.pushState({noBackExitsApp: true}, '')
+});
+
+window.addEventListener('popstate', function(e){
+    if(e.state && event.state.noBackExitsApp){
+        window.history.pushState({noBackExitsApp: true}, '');
+    }
+});
+
+window.addEventListener("backbutton", function(e){
+    e.preventDefault();
+    if($("nav#mobile").is(":visible"))
+    {   
+        $("nav#mobile").toggle("slide", function(){
+            mobile_menu = false;
+        });
+        return false;
+    }
+})
 
 async function clearError()
 {

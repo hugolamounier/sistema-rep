@@ -24,7 +24,7 @@ class Route{
     public static function run($basePath = __DIR__)
     {
         $request = parse_url($_SERVER['REQUEST_URI']);
-
+   
         foreach(self::$routes as $route)
         {
             if($route['expression'] == $request['path'])

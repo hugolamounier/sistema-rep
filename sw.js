@@ -18,6 +18,8 @@ const PRECACHE = [
   'https://kit.fontawesome.com/5c2c380e3d.js',
   'https://kit-free.fontawesome.com/releases/latest/webfonts/free-fa-brands-400.woff2',
   'https://kit-free.fontawesome.com/releases/latest/webfonts/free-fa-solid-900.woff2',
+  '/asset/js/app-behavior.js',
+  '/asset/js/jquery-3.5.1.min.js',
 
 ];
 

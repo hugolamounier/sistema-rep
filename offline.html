@@ -13,6 +13,7 @@
     <meta name="msapplication-TileColor" content="#242939 ">
 
     <link rel="manifest" href="/manifest.json">
+    <script src="/asset/js/jquery-3.5.1.min.js"></script>
     <script src="https://kit.fontawesome.com/5c2c380e3d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/asset/css/theme.css">
     <link rel="manifest" href="/manifest.json">
@@ -20,11 +21,12 @@
 </head>
 
 <body>
+    <div class="error_handler"></div>
     <section id="offline">
-        <div class="wrapper blur">
-            <div class="body rounded-sm">
+        <div class="wrapper">
+            <div class="body">
                 <div class="logo-app rounded noselect">
-                    <span>ic</span>
+                    <img src="/asset/icons/icon-512x512_m.png" alt="App icon">
                 </div>
                 <div class="offline-content">
                     <i class="icon fa-sad-tear"></i>
@@ -35,4 +37,5 @@
         </div>
     </section>
 </body>
+<script src="/asset/js/app-behavior.js" crossorigin="anonymous"></script>
 </html>

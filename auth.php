@@ -10,6 +10,7 @@ $conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, 
 $responseObj = new stdClass();
 $responseObj->status = null;
 $responseObj->message = null;
+sleep(1);
 
 if(!isset($_POST["userEmail"]) || !isset($_POST["userPassword"]))
 {

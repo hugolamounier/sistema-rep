@@ -1,41 +1,6 @@
 var mobile_menu = false;
 var primary_color = "#6a1b9a";
 var label_color = "#9e9e9e";
-function auth(element, form)
-{
-    var formData = new FormData(form[0]);
-    $.ajax({
-        url: "/auth.php",
-        type: "POST",
-        data: formData,
-        async: true,
-        cache: false,
-        contentType: false,
-        processData: false,
-        timeout: 10000,
-        beforeSend: function(jqXHR, settings){
-            clearInputError($("*[data-input-name=userEmail]"));
-            clearInputError($("*[data-input-name=userPassword]"));
-            showLoadingOnButton(element);
-        },
-        success: function(response){
-            var data = JSON.parse(response);
-            if(data.status === true)
-            {
-                window.location.reload();
-            }else{
-                returnInputError($("*[data-input-name=userEmail]"));
-                returnInputError($("*[data-input-name=userPassword]"));
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown){
-
-        },
-        complete: function(jqXHR, textStatus){
-            closeLoadingOnButton(element);
-        }
-    });
-}
 function getRotationDegrees(obj) {
     var matrix = obj.css("-webkit-transform") ||
     obj.css("-moz-transform")    ||
@@ -100,32 +65,29 @@ function displayLoadError(element, text)
     });
 }
 var element_content;
-function showLoadingOnButton(element)
+function showLoadingOnButton(element, shrinkTo)
 {
-    if(element_content != null)
-    {
-        element_content = null;
-    }
+    if(element_content != null){ element_content = null; }
     element_content = element.html();
     element.animate({
-        "flex-basis": "32px",
+        "flex-basis": shrinkTo,
     }, 600, function(){
         element.html("<i class=\"loading\"></i>");
         element.find("i").html("<div class=\"lds-dual-ring\"></div>");
     });
 }
-function closeLoadingOnButton(element)
+function closeLoadingOnButton(element, growTo)
 {
     element.animate({
-        "flex-basis": "50%",
+        "flex-basis": growTo,
     }, 600, function(){
-        element.html(element_content);
-        element_content = null;
-        element.addClass("noHover");
-        if(element.hasClass("simulateHover"))
-        {
-            $("a[data-action=login]").removeClass("simulateHover");
-        }
+        setTimeout(() =>{
+            element.html(element_content);
+            element_content = null;
+            if(window.matchMedia('(hover: none)').matches === true){element.addClass("noHover");}
+            if(element.hasClass("simulateHover")){ $(element).removeClass("simulateHover");}
+            if(element.hasClass("waves-effect")){ $(element).removeClass("waves-effect waves-light");}
+        }, 250);
     });
 }
 function loadingOnButton(element) // element se refere ao i
@@ -241,9 +203,10 @@ $(function () {
     });
 });
 $(document).click(function(event){
+
+    // Nav
     var nav = $("nav#mobile");
     var target = $(event.target);
-
     if(mobile_menu == true)
     {
         if(event.target.tagName != "NAV" && !target.parents("#mobile").length)
@@ -253,13 +216,21 @@ $(document).click(function(event){
             });
         }
     }
+
     // close popup-card
     var popupCard = $(".popup-card");
-    if(!$(event.target).hasClass("popup-card") && !$(event.target).parents(".popup-card").length && event.target.tagName != "HEADER" && !$(event.target).parents("header").length)
+    if(popupCard.is(":visible") && !$(event.target).hasClass("popup-card") && !$(event.target).parents(".popup-card").length && event.target.tagName != "HEADER" && !$(event.target).parents("header").length)
     {
-        if(popupCard.is(":visible"))
+        console.log("primeira regra aplicada");
+        hideEffect(".popup-card");
+    }else if(popupCard.is(":visible")){   
+        if(event.target.tagName == "HEADER" || $(event.target).parents("header").length)
         {
-            hideEffect(".popup-card");
+            if(!$(event.target).data("popup-card") && !$(event.target).parent().data("popup-card") && !$(event.target).parents("*[data-popup-card=true]").length)
+            {
+                hideEffect(".popup-card");
+            }
+            
         }
     }
 
@@ -275,7 +246,53 @@ $(document).on("click", ".menu-collapse", function(e){
     }
     
 })
+
+    //Nav track
+    if($("nav#desktop").is(":visible"))
+    {
+        console.log(window.location.pathname);
+    }
+
 // End Navegation
+
+// Login
+function auth(element, form)
+{
+    var formData = new FormData(form[0]);
+    $.ajax({
+        url: "/auth.php",
+        type: "POST",
+        data: formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        timeout: 10000,
+        beforeSend: function(jqXHR, settings){
+            clearInputError($("*[data-input-name=userEmail]"));
+            clearInputError($("*[data-input-name=userPassword]"));
+            showLoadingOnButton(element, "20%");
+        },
+        success: function(response){
+            var data = JSON.parse(response);
+            if(data.status === true)
+            {
+                window.location.reload();
+            }else{
+                returnInputError($("*[data-input-name=userEmail]"));
+                returnInputError($("*[data-input-name=userPassword]"));
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+
+        },
+        complete: function(jqXHR, textStatus){
+            closeLoadingOnButton(element, "60%");
+        }
+    });
+}
+// Login
+
 // Popup-card
 function showEffect(element)
 {
@@ -344,13 +361,18 @@ function loadPopUpContent(async_load, right_value, element)
             $(this).click(function(e){
                 var async_load = $(this).data("dy-view");
                 var offset = $(this).offset();
-                var position_calc = offset.left + $(element).width() + parseFloat($(element).css("padding-right"), 10) + parseFloat($("header .header__wrapper .right").css("padding-right"), 10);                var right_value = null;
+                var position_calc = offset.left + $(element).width() + parseFloat($(element).css("padding-right"), 10) + parseFloat($("header .header__wrapper .right").css("padding-right"), 10);
+                var right_value = null;
 
-                if(position_calc > ($(window).width() - position_calc) + $(".popup-card").width())
-                {
-                    right_value = ($(window).width() - position_calc);
+                if($(window).width() <= 992){
+                    right_value = 0;
                 }else{
-                    right_value = Math.abs(position_calc - $(".popup-card").width() - 10); 
+                    if(position_calc > ($(window).width() - position_calc) + $(".popup-card").width())
+                    {
+                        right_value = ($(window).width() - position_calc);
+                    }else{
+                        right_value = Math.abs(position_calc - $(".popup-card").width() - 10); 
+                    }
                 }
 
                 if($(".popup-card").is(":visible"))
@@ -381,6 +403,23 @@ function loadPopUpContent(async_load, right_value, element)
 
 
 // Layout
+$('section.page__content').height(function(){ //fix page__content height
+    let page_header_height = $("main .page .header").height();
+    let document_header_height = $("header").height();
+
+    return $(window).height() - page_header_height - document_header_height - 5;
+}); 
+
+$(".loading_refresh").hide();
+$('.collapisible-menu ul').hide();
+$('.collapisible-menu').hide();
+$("nav#mobile").hide();
+$(document).ready(function(){
+    $("*[data-popup-card=true]").popUpCard();
+    $("nav").menu();
+    $('.tooltipped').tooltip();
+});  
+
 function displayHiddenFlex(element, callback)
 {
     element.css({

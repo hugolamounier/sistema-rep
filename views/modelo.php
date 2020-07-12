@@ -16,7 +16,6 @@
         <div class="header__toolbar">
             <div class="header__btn rounded-sm tooltipped" data-position="bottom" data-tooltip="Teste"><i class="icon fa-home"></i></div>
             <div class="header__btn rounded-sm"><i class="icon fa-home"></i></div>
-            <div class="header__btn rounded-sm"><i class="icon fa-home"></i></div>
             <div class="header__btn rounded-sm"><span>Adicionar algo</span></div>
         </div>
     </div>

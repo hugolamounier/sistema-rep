@@ -1,4 +1,3 @@
-
 <!-- Header -->
 <header class="noselect">
         <div class="header__wrapper">
@@ -38,15 +37,3 @@
 
     <div class="popup-card z-depth-3 rounded-bottom-sm">
     </div>
-    
-<script>
-$(".loading_refresh").hide();
-$('.collapisible-menu ul').hide();
-$('.collapisible-menu').hide();
-$("nav#mobile").hide();
-$(document).ready(function(){
-    $("*[data-popup-card=true]").popUpCard();
-    $("nav").menu();
-    $('.tooltipped').tooltip();
-});  
-</script>
