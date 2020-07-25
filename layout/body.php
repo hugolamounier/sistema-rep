@@ -34,6 +34,3 @@
             Route::run(ROOT_DIR);
         ?>
     </main>
-
-    <div class="popup-card z-depth-3 rounded-bottom-sm">
-    </div>

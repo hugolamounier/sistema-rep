@@ -1,12 +1,5 @@
 <?php
     require 'config.php';
-
-    // Classes
-    require (ROOT_DIR."/class//Route.class.php");
-    require (ROOT_DIR."/class//Helper.class.php");
-
-    $conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME,
-    NULL, NULL, ROOT_DIR."/BaltimoreCyberTrustRoot.crt.pem");
     
 ?>
 <!DOCTYPE html>
@@ -24,6 +17,7 @@
     <meta name="apple-mobile-web-app-status-bar" content="#242939">
     <meta name="msapplication-TileColor" content="#242939 ">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     
     <!-- Splash Screen iOS -->
     <link rel="apple-touch-startup-image" href="/images/splash/launch-640x1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
@@ -34,7 +28,7 @@
     <link rel="apple-touch-startup-image" href="/images/splash/launch-1668x2224.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
     <link rel="apple-touch-startup-image" href="/images/splash/launch-2048x2732.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
 
-    <link rel="apple-touch-icon" href="/asset/icons/icon-512x512_iphone.png">
+    <link rel="apple-touch-icon" href="/asset/icons/icon-512x512.png">
     <link rel="icon" type="image/png" href="/asset/icons/icon-512x512_m.png" />
     <!-- Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -58,6 +52,7 @@
 
 <body>
 <div class="error_handler"></div>
+<div class="error_message z-depth-2"></div>
 </div>
     <?php
         if (isset($_GET["logout"]))
@@ -67,8 +62,18 @@
 
         if(Helper::isLogged($conn, AUTH_HASH))
         {
-            require (ROOT_DIR."/routing.php");
-            require (ROOT_DIR."/layout//body.php");
+            if(!isset($_COOKIE[SELECTOR_COOKIE])){
+                require (ROOT_DIR."/layout//selector.php");
+            }else{
+                if(!Group::existGroup($conn, $_COOKIE[SELECTOR_COOKIE])){
+                    setcookie(SELECTOR_COOKIE, null, -1);
+                    require (ROOT_DIR."/layout//selector.php");
+                }else{
+                    require (ROOT_DIR."/routing.php");
+                    require (ROOT_DIR."/layout//body.php");
+                }
+            }
+            
         }else{
             Route::add("/", "/views/login.php");
             Route::add("", "/views/login.php");
@@ -76,7 +81,8 @@
             Route::run(ROOT_DIR);
         }
     ?>
-    
+    <div class="popup-card z-depth-3">
+    </div>
 </body>
 <script src="/asset/js/theme.js" crossorigin="anonymous"></script>
 <script src="/asset/js/app-behavior.js" crossorigin="anonymous"></script>

@@ -1,5 +1,6 @@
 
 $(".error_handler").hide();
+$(".error_message").hide();
 
 const isAppFullScreen = () => {
     let screenHeight = window.screen.height;
@@ -36,12 +37,6 @@ window.addEventListener('load', (e) => {
     }
     
 });
-
-window.addEventListener('resize', (e) => {
-
-});
-
-
 
 // Network state handler
 c.registerListener(function(val){
@@ -93,17 +88,6 @@ window.addEventListener('popstate', function(e){
         window.history.pushState({noBackExitsApp: true}, '');
     }
 });
-
-window.addEventListener("backbutton", function(e){
-    e.preventDefault();
-    if($("nav#mobile").is(":visible"))
-    {   
-        $("nav#mobile").toggle("slide", function(){
-            mobile_menu = false;
-        });
-        return false;
-    }
-})
 
 async function clearError()
 {

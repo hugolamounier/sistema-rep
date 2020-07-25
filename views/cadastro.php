@@ -11,7 +11,7 @@
         <div class="input-form rounded z-depth-1" data-input-name="userName">
                 <div>
                     <div class="input-flag"></div>
-                    <input type="text" name="userName" id="userName" placeholder="Nome completo">
+                    <input type="text" name="userName" id="userName" placeholder="Nome completo" required>
                     <div class="input-icon"><i class="icon fa-font"></i></div>
                 </div>
                 <label for="userName">Nome completo</label>
@@ -19,7 +19,7 @@
             <div class="input-form rounded z-depth-1" data-input-name="userEmail">
                 <div>
                     <div class="input-flag"></div>
-                    <input type="email" name="userEmail" id="userEmail" placeholder="usuario@exemplo.com">
+                    <input type="email" name="userEmail" id="userEmail" placeholder="usuario@exemplo.com" required>
                     <div class="input-icon"><i class="icon fa-at"></i></div>
                 </div>
                 <label for="userEmail">E-mail</label>
@@ -28,7 +28,7 @@
                 <div class="input-form rounded z-depth-1" data-input-name="userPassword">
                     <div>
                         <div class="input-flag"></div>
-                        <input type="password" name="userPassword" id="userPassword" placeholder="Senha">
+                        <input type="password" name="userPassword" id="userPassword" placeholder="Senha" required>
                         <div class="input-icon"><i class="icon fa-key"></i></div>
                     </div>
                     <label for="userPassword">Senha</label>
@@ -36,7 +36,7 @@
                 <div class="input-form rounded z-depth-1" data-input-name="userPasswordCheck">
                     <div>
                         <div class="input-flag"></div>
-                        <input type="password" name="userPasswordCheck" id="userPasswordCheck" placeholder="Confirmar">
+                        <input type="password" name="userPasswordCheck" id="userPasswordCheck" placeholder="Confirmar" required> 
                         <div class="input-icon"><i class="icon fa-key"></i></div>
                     </div>
                     <label for="userPasswordCheck">Confirmar Senha</label>
@@ -44,7 +44,15 @@
             </div>
             <p>Ao se cadastrar, você concorda com nossos <a href="">Termos de Uso</a> e <a href="">Política de Dados</a>.</p>
         </form>
-        <a class="waves-effect waves-light button insideout rounded">Cadastre-se</a>
+        <a class="waves-effect waves-light button insideout rounded" type="submit" data-button-name='cadastrar'>Cadastre-se</a>
         </div>
     </div>
 </section>
+<script>
+$(document).on("keypress", function(e){
+    if(e.which == 13)
+    {
+        $("a[data-button-name=cadastrar]").trigger('click');
+    }
+});
+</script>

@@ -18,5 +18,6 @@
 </div>
 
 <div class="popup-card__footer">
+    <a data-button-name="selector" class="waves-effect waves-light btn-small"><i class="icon fa-exchange-alt left"></i>  Trocar</a>
     <a data-button-name="logout" class="waves-effect waves-light btn-small"><i class="icon fa-sign-out-alt left"></i>  Sair</a>
 </div>

@@ -1,5 +1,5 @@
 <div class="logo-app rounded">
-    <img src="/asset/icons/icon-512x512_m.png" alt="App icon">
+    <img src="/asset/icons/logo_white.png" alt="App icon">
 </div>
 <ul>
     <li class="no-hover"><div class="menu-separetor"><div class="separetor"></div><div class="separetor"></div><div class="separetor"></div></div></li>
