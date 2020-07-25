@@ -489,8 +489,42 @@ async function addGroup(element, form){
             return;
         }
     }
-    
-    
+
+    const add_group = await $.ajax({
+        url: '/modules/Group.php?a=add-group',
+        type: 'POST',
+        data: formData,
+        async: true,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(response){
+            if(!isObject(response)){
+                if(isValidJSON(response)){
+                    var data = JSON.parse(response);
+                }else{
+                    error("<i class='icon fa-frown'></i> Estamos com problemas, tente novamente mais tarde.");
+                }
+            }else{
+                var data = response;
+            }
+
+            if(data.status === true){
+                error(data.message).then(()=>{
+                    window.location.reload();
+                });
+            }else{
+                error(data.message);
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+            console.log(jqXHR+ '\n' +textStatus + '\n' +errorThrown);
+        },
+        complete: function(jqXHR, textStatus){
+            closeLoadingOnButton(element, "auto");
+        }
+
+    });
 }
 
 // Popup-card

@@ -3,6 +3,8 @@ class Helper{
     public static function mysqlConnect($db_server, $db_username, $db_password, $db_name, $key = NULL, $cert = NULL, $ca = NULL)
     {
         $connection = new MySQLi();
+        $driver = new mysqli_driver();
+        $driver->report_mode = MYSQLI_REPORT_ALL;
         if($key != null || $cert != null || $ca != null){
             $connection->ssl_set($key, $key, $ca, NULL, NULL);
         }

@@ -4,6 +4,8 @@ class Group{
     protected $groupName;
     protected $groupOwner;
     protected $groupType; // 1 = República, 2 = Casa
+    protected $groupAddress;
+    protected $groupCEP;
     protected $conn;
 
 
@@ -21,19 +23,44 @@ class Group{
             $this->groupName = $row['groupName'];
             $this->groupOwner = $row['groupOwner'];
             $this->groupType = $row['groupType'];
+            $this->groupAddress = $row['groupAddress'];
+            $this->groupCEP = $row['groupCEP'];
         }else{
             $this->groupName = NULL;
             $this->groupOwner = NULL;
             $this->groupType = NULL;
+            $this->groupAddress = NULL;
+            $this->groupCEP = NULL;
         }
 
+    }
+
+    public function addGroup(){
+        if(!is_null($this->groupId)){
+            Log::insert($this->conn, "SYSTEM", 1, "Group::addGroup()", "Tentativa de adicionar um grupo que já existe. groupId:".$this->groupId, __FILE__);
+            return false;
+        }
+        try{
+            $sql = $this->conn->prepare('INSERT INTO group_ (groupName, groupOwner, groupType, groupAddress, groupCEP) VALUES (?, ?, ?, ?, ?)');
+            $sql->bind_param('ssiss', $this->groupName, $this->groupOwner, $this->groupType, $this->groupAddress, $this->groupCEP);
+            $check = $sql->execute();
+
+            if($check){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception $e){
+            Log::insert($this->conn, "SYSTEM", 1, "Group::addGroup()", $e, __FILE__);
+            return false;
+        }
     }
 
     public function returnMembers(){
 
     }
 
-    public static function existGroup(MySQLi $conn, int $groupId){
+    public static function existGroup(MySQLi $conn, int $groupId){  
         $sql = $conn->prepare('SELECT groupId from group_ where groupId = ?');
         $sql->bind_param('i', $groupId);
         $check = $sql->execute();
@@ -146,6 +173,46 @@ class Group{
     public function setGroupType($groupType)
     {
         $this->groupType = $groupType;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of groupAddress
+     */ 
+    public function getGroupAddress()
+    {
+        return $this->groupAddress;
+    }
+
+    /**
+     * Set the value of groupAddress
+     *
+     * @return  self
+     */ 
+    public function setGroupAddress($groupAddress)
+    {
+        $this->groupAddress = $groupAddress;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of groupCEP
+     */ 
+    public function getGroupCEP()
+    {
+        return $this->groupCEP;
+    }
+
+    /**
+     * Set the value of groupCEP
+     *
+     * @return  self
+     */ 
+    public function setGroupCEP($groupCEP)
+    {
+        $this->groupCEP = $groupCEP;
 
         return $this;
     }

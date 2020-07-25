@@ -4,6 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 session_start();
 header ('Content-type: text/html; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
 date_default_timezone_set("Brazil/East"); 
 
 // Variables
