@@ -1,3 +1,6 @@
+<?php
+$User = new User($conn, $_SESSION['userEmail']);
+?>
 <!-- Header -->
 <header class="noselect">
         <div class="header__wrapper">
@@ -8,8 +11,8 @@
             </div>
             <div class="right">
                 <div class="logged-user clickable waves-effect waves-purple" data-popup-card="true" data-dy-view="user_info">
-                    <div class="user hide-on-small-only"><span>Olá, &nbsp;<b>Hugo</b></span></div>
-                    <div class="profile-pic"><img class="circle" src="/images/profile/hugo.jpg" alt=""></div>
+                    <div class="user hide-on-small-only"><span>Olá, &nbsp;<b><?php echo trim(explode(' ', $User->getUserName())[0]) ?></b></span></div>
+                    <div class="profile-pic"><img class="circle" src="<?php echo $User->getUserProfilePicture() ?>" alt=""></div>
                 </div>
                 <div class="header__badges">
                     <div class="badge-item rounded-50 waves-effect waves-purple" data-popup-card="true" data-dy-view="notifications"><div class="highlight-badge"></div><i class="material-icons">notifications</i></div>

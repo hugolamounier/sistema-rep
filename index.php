@@ -31,26 +31,38 @@
     <link rel="apple-touch-icon" href="/asset/icons/icon-512x512.png">
     <link rel="icon" type="image/png" href="/asset/icons/icon-512x512_m.png" />
     <!-- Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" preconnect>
     <!-- CSS theme -->
     <link rel="stylesheet" href="/asset/css/materialize.min.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" preconnect>
     <link rel="stylesheet" href="/asset/css/theme.css">
+    <link href="/vendor/pullToRefresh/styles/style.css" rel="stylesheet">
     <link rel="manifest" href="/manifest.json">
     <!-- Libs JS -->
     <script src="/asset/js/jquery-3.5.1.min.js"></script>
-    <script src="https://kit.fontawesome.com/5c2c380e3d.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/asset/js/jquery.debounce-1.0.5.js"></script>
+    <script src="https://kit.fontawesome.com/5c2c380e3d.js" crossorigin="anonymous" preconnect></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" preconnect></script>
     <script>$.widget.bridge('uitooltip', $.ui.tooltip);</script>
     <script src="/asset/js/materialize.min.js"></script>
+    <script src="/asset/js/isotope.min.js"></script>
+    <script src="/vendor/pullToRefresh/styles/animates.js"></script>
+    <script src="/asset/js/pullToRefresh.js"></script>
     
-    <script src="/asset/js/jquery.mask.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/jquery.validate.min.js"></script>
+    <script src="/asset/js/jquery.mask.min.js" crossorigin="anonymous" defer></script>
 </head>
 
 <body>
+    <div class="pull-to-refresh-material2__control">
+        <svg class="pull-to-refresh-material2__icon" fill="#4285f4" width="24" height="24" viewBox="0 0 24 24">
+          <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+          <path d="M0 0h24v24H0z" fill="none" />
+        </svg>
+
+        <svg class="pull-to-refresh-material2__spinner" width="24" height="24" viewBox="25 25 50 50">
+          <circle class="pull-to-refresh-material2__path pull-to-refresh-material2__path--colorful" cx="50" cy="50" r="20" fill="none" stroke-width="4" stroke-miterlimit="10" />
+        </svg>
+    </div>
 <div class="error_handler"></div>
 <div class="error_message z-depth-2"></div>
 </div>
@@ -75,6 +87,9 @@
             }
             
         }else{
+            if(parse_url($_SERVER['REQUEST_URI'])['path'] != '/'){
+                echo '<meta http-equiv="refresh" content="0; URL=/">';
+            }
             Route::add("/", "/views/login.php");
             Route::add("", "/views/login.php");
             Route::add("/cadastro", "/views/cadastro.php");
@@ -84,8 +99,8 @@
     <div class="popup-card z-depth-3">
     </div>
 </body>
-<script src="/asset/js/theme.js" crossorigin="anonymous"></script>
-<script src="/asset/js/app-behavior.js" crossorigin="anonymous"></script>
+<script src="/asset/js/theme.js" crossorigin="anonymous" defer></script>
+<script src="/asset/js/app-behavior.js" crossorigin="anonymous" defer></script>
 <!-- <script>
 // Check that service workers are supported
 if ('serviceWorker' in navigator) {

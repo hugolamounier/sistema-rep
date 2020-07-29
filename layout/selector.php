@@ -2,7 +2,6 @@
 $User = new User($conn, $_SESSION['userEmail']);
 $groupId = Group::userIsOnGroup($conn, $User->getUserEmail());
 ?>
-<script src="/asset/js/isotope.min.js"></script>
 <section id="selector">
     <?php
         if(empty($groupId[0]) && empty($groupId[1])){

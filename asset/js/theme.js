@@ -122,11 +122,11 @@ function showLoadingOnElement(element)
 {
     var DOM_element = "<div class=\"loading\"><div class=\"lds-dual-ring\"></div></div>";
     element.append(DOM_element);
-    element.find(".loading").fadeIn(100);
+    element.find("div.loading").fadeIn(100);
 }
 function removeLoadingOnElement(element, callback)
 {
-    element.find(".loading").fadeOut(100, function(){
+    element.find("div.loading").fadeOut(100, function(){
         $(this).remove();
         typeof callback == "function" && callback();
     });
@@ -175,49 +175,34 @@ function hideLoadingOnButton(element, icon)
 // end loading
 
 // Navegation
-var timeout;
 (function( $ ){
     $.fn.menu = function() {
-        $(document).on("mouseenter", "nav#desktop", function(){
+        $(document).on("mouseenter", "nav#desktop", $.throttle(function(){
             var $this = $(this);
-            if(timeout != null)
-            {
-                clearTimeout(timeout);
-                timeout = null;
-            }
-            timeout = setTimeout(function (){
-                $("nav#desktop > .nav__groups").hide(0, function(){
+            $("nav#desktop > .nav__groups").hide(0, function(){
+                $this.animate({
+                    width: "250",
+                }, 200, function(){
+                    $("nav > ul.collapisible-menu").show();
+                    $this.find("li").addClass("full-menu");
+                });
+                
+            });
+        },1000));
+        $(document).on("mouseleave", "nav#desktop", $.debounce(function(){
+            var $this = $(this);
+            $("nav#desktop > ul.collapisible-menu").hide(0, function(){
+                if($this.width() > 80)
+                {
                     $this.animate({
-                        width: "250",
-                    }, 200, function(){
-                        $("nav > ul.collapisible-menu").show();
-                        $this.find("li").addClass("full-menu");
+                        width: "80",
+                    }, 150, function(){
+                        $("nav > .nav__groups").show();
                     });
-                    
-                });
-            }, 100);
-        });
-        $(document).on("mouseleave", "nav#desktop", function(){
-            var $this = $(this);
-            if(timeout != null)
-            {
-                clearTimeout(timeout);    
-                timeout = null;
-            }
-            timeout = setTimeout(function(){
-                $("nav#desktop > ul.collapisible-menu").hide(0, function(){
-                    if($this.width() > 80)
-                    {
-                        $this.animate({
-                            width: "80",
-                        }, 150, function(){
-                            $("nav > .nav__groups").show();
-                        });
-                        $(this).find("li").removeClass("full-menu");
-                    } 
-                });
-            }, 150);
-        });
+                    $(this).find("li").removeClass("full-menu");
+                } 
+            });
+        },800));
     }; 
  })( jQuery );
 
@@ -320,11 +305,21 @@ $(document).on("click", ".menu-collapse", function(e){
     
 })
 
-    //Nav track
-    if($("nav#desktop").is(":visible"))
-    {
-        console.log(window.location.pathname);
+    // Navegation Actions
+    $('.collapisible-menu > li[href]').on('click', function(){
+        window.location.href = $(this).attr('href');
+    });
+    
+    //Navegation active item
+    function setActiveNavItem(){
+        let pathname = window.location.pathname; 
+        pathname = pathname.split('/');
+
+        let item_active = $('nav').find("li[href='/"+pathname[1]+"']");
+        item_active.addClass('active');
+        $("nav").find("li[data-menu-name='"+item_active.data('group-name')+"']").addClass('active');
     }
+
 
 // End Navegation
 
@@ -361,6 +356,16 @@ function auth(element, form)
         },
         complete: function(jqXHR, textStatus){
             closeLoadingOnButton(element, "60%");
+        }
+    });
+}
+async function logout(){
+    const logout = await $.ajax({
+        url: '/index.php?logout=1',
+        type: 'GET',
+        success: function(data){
+            eraseCookie('group-id');
+            window.location.href='/';
         }
     });
 }
@@ -457,11 +462,12 @@ async function addGroup(element, form){
     }else{
         var ajax_validation = false;
         const result = await $.ajax({
-            url: 'http://viacep.com.br/ws/'+formData.get('groupCEP').replace(/[^\d]+/g,'')+'/json/',
+            url: 'https://viacep.com.br/ws/'+formData.get('groupCEP').replace(/[^\d]+/g,'')+'/json/',
             type: 'GET',
             dataType: 'json',
             timeout: 8000,
             success: function(response){
+                console.log(response);
                 if(!isObject(response)){
                     if(isValidJSON(response)){
                         var data = JSON.parse(response);
@@ -498,6 +504,7 @@ async function addGroup(element, form){
         cache: false,
         contentType: false,
         processData: false,
+        timeout: 10000,
         success: function(response){
             if(!isObject(response)){
                 if(isValidJSON(response)){
@@ -690,6 +697,21 @@ $(document).ready(function(){
     $("*[data-popup-card=true]").popUpCard();
     $("nav").menu();
     $('.tooltipped').tooltip();
+    setActiveNavItem();
+
+    pullToRefresh({
+        container: document.querySelector('body'),
+        animates: ptrAnimatesMaterial2,
+
+        refresh() {
+          return new Promise(resolve => {
+            setTimeout(resolve =>{
+                window.location.reload();
+            }, 1000)
+          })
+        }
+      })
+
 });  
 
 function displayHiddenFlex(element, callback)
@@ -705,14 +727,14 @@ function displayHiddenFlex(element, callback)
 
 // Actions
     // button actions
-    $(document).on("click", "a[data-button-name]", function(e){
+    $(document).on("click", "a[data-button-name]", $.throttle(function(e){
         let button_name = $(this).data("button-name");
         var $this = $(this);
         switch(button_name)
         {
             case 'logout':
                 loadingOnButton($(this).find("i"));
-                window.location.href='?logout=1';
+                logout();
             break;
             case 'cadastrar':
                 if($this.hasClass('noHover')){
@@ -738,7 +760,7 @@ function displayHiddenFlex(element, callback)
                 addGroup($this, formGroup);
             break;
         }
-    });
+    },3000));
 
     var $selector = $('.selector_options_wrapper').isotope({
             itemSelector: '.option',
@@ -763,7 +785,7 @@ function displayHiddenFlex(element, callback)
                         $this.fadeOut(500, ()=>{
                             window.location.reload();
                         })
-                    }, 1500)
+                    }, 500)
                 });
             }else{
                 let action = $(this).data('option-action');

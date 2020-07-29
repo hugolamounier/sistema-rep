@@ -61,12 +61,19 @@
 
 
 <script>
+$(document).on("keypress", function(e){
+    if(e.which == 13)
+    {
+        $("a[data-button-name=add_group_submit]").trigger('click');
+    }
+});
 $(document).ready(function(){
-    $('.option').on('click', function(e){
-        $(this).parent().find('div.option.active').removeClass('active');
-        $(this).addClass('active');
-        $('input[name=groupType]').val($(this).data('group-type'));
-    });
+    $('.option').on('click', $.throttle(function(e){
+        console.log(e.currentTarget);
+        $(e.currentTarget).parent().find('div.option.active').removeClass('active');
+        $(e.currentTarget).addClass('active');
+        $('input[name=groupType]').val($(e.currentTarget).data('group-type'));
+    },1000));
 
     $('input[name=groupCEP]').mask('99999-999');
 });

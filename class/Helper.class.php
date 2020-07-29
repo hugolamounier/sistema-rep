@@ -90,8 +90,6 @@ class Helper{
     {
         session_destroy();
         $_SESSION["userEmail"] = "";
-        setcookie('group-id', null, -1);
-        header("location:/");
     }
 
 // Authentication end

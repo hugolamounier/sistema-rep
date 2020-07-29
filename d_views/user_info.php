@@ -1,11 +1,24 @@
+<?php 
+require "../config.php";
+$User = new User($conn, $_SESSION['userEmail']);
+$Group = new Group($conn, $_COOKIE[SELECTOR_COOKIE]);
+
+
+if($Group->getGroupOwner() === $User->getUserEmail()){
+    $member_type = 'Administrador';
+}else{
+    $member_type = 'Membro';
+}
+
+?>
 <div class="popup-card__header">
     <div class="popup-card__highlight">
             <div class="left">
-                <img class="circle z-depth-1" src="/images/profile/hugo.jpg" width="60" alt="">
+                <img class="circle z-depth-1" src="<?php echo $User->getUserProfilePicture() ?>" width="60" alt="">
             </div>
             <div class="right">
                 <div>Olimpo</div>
-                <div>Administrador</div>
+                <div><?php echo $member_type ?></div>
             </div>
         </div>
     </div>

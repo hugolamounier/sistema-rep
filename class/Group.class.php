@@ -44,6 +44,7 @@ class Group{
             $sql = $this->conn->prepare('INSERT INTO group_ (groupName, groupOwner, groupType, groupAddress, groupCEP) VALUES (?, ?, ?, ?, ?)');
             $sql->bind_param('ssiss', $this->groupName, $this->groupOwner, $this->groupType, $this->groupAddress, $this->groupCEP);
             $check = $sql->execute();
+            $sql->store_result();
 
             if($check){
                 return true;
@@ -52,6 +53,50 @@ class Group{
             }
         }catch(Exception $e){
             Log::insert($this->conn, "SYSTEM", 1, "Group::addGroup()", $e, __FILE__);
+            return false;
+        }
+    }
+
+    public function insertMember(String $userEmail, int $authority){
+        if(is_null($this->groupId)){
+            Log::insert($this->conn, "SYSTEM:::".$_SESSION['userEmail'], 1, "Group::insertMember()", "Tentativa de inserir membro em um grupo que não existe.", __FILE__);
+            return false;
+        }
+        if(self::isMember($this->conn, $userEmail, $this->groupId)){
+            Log::insert($this->conn, "SYSTEM:::".$_SESSION['userEmail'], 1, "Group::insertMember()", "Tentativa de entrar em um grupo que já é membro.", __FILE__);
+            return false;
+        }
+        try{
+            $sql = $this->conn->prepare("INSERT INTO group_member (groupId, userEmail, memberAuthority) VALUES (?, ?, ?)");
+            $sql->bind_param('isi', $this->groupId, $userEmail, $authority);
+            $check = $sql->execute();
+            $sql->store_result();
+
+            if($check){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception $e){
+            Log::insert($this->conn, "SYSTEM", 1, "Group::insertMember()", $e, __FILE__);
+            return false;
+        }
+        
+    }
+
+    public static function isMember(MySQLi $conn, String $userEmail, int $groupId){
+        try{
+            $sql = $conn->prepare('SELECT userEmail FROM group_memer WHERE userEmail = ? AND groupId = ?');
+            $sql->bind_param('si', $userEmail, $groupId);
+            $sql->execute();
+            $sql->store_result();
+            if($sql->num_rows > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }catch(Exception $e){
+            Log::insert($conn, "SYSTEM", 1, "Group::isMember()", $e, __FILE__);
             return false;
         }
     }

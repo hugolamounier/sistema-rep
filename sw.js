@@ -19,6 +19,7 @@ const PRECACHE = [
   'https://kit-free.fontawesome.com/releases/latest/webfonts/free-fa-brands-400.woff2',
   'https://kit-free.fontawesome.com/releases/latest/webfonts/free-fa-solid-900.woff2',
   '/asset/js/app-behavior.js',
+  '/asset/js/theme.js',
   '/asset/js/jquery-3.5.1.min.js',
 
 ];
@@ -69,7 +70,8 @@ registerRoute(
 );
 
 registerRoute(
-  ({url}) =>  url.pathname.substring(0, url.pathname.lastIndexOf("/")) === '/images/website', 
+  ({request, url}) => request.destination === 'image' && url.pathname.substring(0, url.pathname.lastIndexOf("/")) === '/images/website' ||
+                                                         url.pathname.substring(0, url.pathname.lastIndexOf("/")) === '/asset/icons', 
   new CacheFirst({
       cacheName: APP_IMAGE_CACHE,
       plugins: [

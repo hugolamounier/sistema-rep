@@ -78,22 +78,23 @@ window.addEventListener('beforeinstallprompt', function(event) {
 // 
 
 
-// Handle back button
-window.addEventListener('load', function(e){
-    window.history.pushState({noBackExitsApp: true}, '')
-});
+// // Handle back button
+// window.addEventListener('load', function(e){
+//     window.history.pushState({noBackExitsApp: true}, '')
+// });
 
-window.addEventListener('popstate', function(e){
-    if(e.state && event.state.noBackExitsApp){
-        window.history.pushState({noBackExitsApp: true}, '');
-    }
-});
+// window.addEventListener('popstate', function(e){
+//     if(e.state && event.state.noBackExitsApp){
+//         window.history.pushState({noBackExitsApp: true}, '');
+//     }
+// });
 
 async function clearError()
 {
-    let error_content = await $(".error_handler").html("").promise();
+    let error_content = await $(".error_handler").html("").promise().done();
     let error_hide = await $(".error_handler").slideToggle(200);
     window.location.reload(); 
+    return;
 }
 
 async function errorHandling(errorMsg){
@@ -108,4 +109,11 @@ async function errorHandling(errorMsg){
     let error_display = await $(".error_handler").slideToggle(200);
 
     return;
+}
+
+async function checkNotification(){
+    const check = await $.ajax({ 
+
+     });
+    setInterval(checkNotification(), 5000);
 }

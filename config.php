@@ -30,6 +30,11 @@ require ROOT_DIR."/class//Helper.class.php";
 require ROOT_DIR."/class//User.class.php";
 require ROOT_DIR."/class//Group.class.php";
 
-$conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME, DATABASE_CERT_KEY, DATABASE_CERT, DATABASE_CA);
+try{
+    $conn = Helper::mysqlConnect(DATABASE_SERVER, DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME, DATABASE_CERT_KEY, DATABASE_CERT, DATABASE_CA);
+}catch(Exception $e){
+    die("Erro ao conectar ao banco de dados");
+}
+
 
 ?>

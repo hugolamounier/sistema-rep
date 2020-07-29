@@ -82,10 +82,12 @@ nav ul.collapisible-menu li > div.menu-op{width: fit-content; height: 45px; disp
 nav ul.collapisible-menu li > div.menu-op > i{width:50px; margin: 0; display: flex; justify-content: center; font-size: 20px; color: #3e4763; transition: all .3s; -webkit-transition: all .3s;}
 nav ul.collapisible-menu li > div.menu-op > div{flex:1 1 100%;margin: 0 0 0 0.1em; display: none; padding: 0; color: #80869a; font-size: 0.9rem;transition: all .3s; -webkit-transition: all .3s;}
 nav ul li.active{background: #171b28;}
+nav ul li.active div.menu-op > div{color: white;}
+nav ul li.active div.menu-op > i{color: rgb(var(--accent-color));}
 nav ul li.active:hover{background: #171b28;}
 nav ul li:hover {background: #1f2433;}
 nav ul li:hover div.menu-op > div{color: white;}
-nav ul li:hover div.menu-op > i{color: rgb(var(--accent-color-2));}
+nav ul li:hover div.menu-op > i{color: rgb(var(--accent-color));}
 
 
 nav ul.collapisible-menu li.full-menu div > div{height: 0; display: flex; align-items: center; flex: 1 1 0; font-weight: 700;}
@@ -101,8 +103,9 @@ nav ul.collapisible-menu li ul li:hover > div{color: white;}
 nav ul.collapisible-menu li ul li:hover > div::before{background: rgb(var(--accent-color-2));}
 
 /* Groups */
-nav ul.collapisible-menu > li.group{width: 100%; min-height: 32px !important; display: flex; cursor: default;}
-nav ul.collapisible-menu li.group > span{width: 100%; height: 32px; display: flex; align-items: center; color: #80869a; font-weight: 900; padding: 0 0 0 1.5em; letter-spacing: 0.1em; font-size: 0.7rem; text-transform: uppercase;}
+nav ul.collapisible-menu > li.group{width: 100%; min-height: 32px !important; display: flex; align-items: center; cursor: default; padding: 0 0 0 1em;}
+nav ul.collapisible-menu li.group > i {height:24px !important; font-size:12px; display: flex; align-items: center; margin: 0 0.75em 0 0; color: #80869a;} 
+nav ul.collapisible-menu li.group > span{width: fit-content; height: 32px; display: flex; align-items: center; color: #80869a; font-weight: 900; letter-spacing: 0.1em; font-size: 0.7rem; text-transform: uppercase;}
 nav ul.collapisible-menu li.group:hover{background: transparent;}
 
 nav ul.nav__groups{width: 100%; display: flex; flex-direction: column; list-style-type: none;}
@@ -113,7 +116,7 @@ nav ul.nav__groups > li.active > i{color: rgb(var(--accent-color));}
 /* Interface */
 .popup-card{max-width: 350px; width: 300px; height: fit-content; max-height: 450px; position: absolute;
 display: flex; background: #fafafa; overflow: hidden; flex-direction: column; z-index:200;}
-.popup-card .popup-card__header{width: 100%; height: 60px; display: flex; background: rgb(var(--primary-color)); position: relative;}
+.popup-card .popup-card__header{width: 100%; height: 60px; display: flex; background: var(--primary-color-light); position: relative;}
 
 .popup-card .popup-card__header .title__highlight{width: 100%; height: fit-content;
 display: flex; justify-content: center; align-items: center; position: absolute; top: 0.5em;}
@@ -152,8 +155,8 @@ main{width: 100%; min-height: 300px; padding: 80px 10px 0 90px; overflow-x: hidd
   main .page .header .header__title > .title{width:100%; height: fit-content; align-items: center; display: flex;}
   main .page .header .header__title > .title > span{font-weight: 700;}
   main .page .header .header__title > .title .back_history{width: 32px; height: 32px; margin:0 0.5em 0 0; display: flex; align-items: center; justify-content: center; transition: ease .3s; cursor: pointer; -webkit-transition: ease .3s; display: flex;}
-  main .page .header .header__title > .title .back_history > i{margin: 0;transition: ease .3s; -webkit-transition: ease .3s; color: rgb(var(--accent-color-2));}
-  main .page .header .header__title > .title .back_history:hover{background: rgba(var(--primary-color), 0.3);}
+  main .page .header .header__title > .title .back_history > i{margin: 0;transition: ease .3s; -webkit-transition: ease .3s; color: white;}
+  main .page .header .header__title > .title .back_history:hover{background: rgba(var(--accent-color), 0.3);}
   main .page .header .header__title > .title .back_history:hover > i{color: white;}
   main .page .header .header__title .breadcrumbs{width:fit-content; height:fit-content; padding: 0 0 0 1em; display: flex; align-items: center;  color: var(--gray-blue);}
   main .page .header .header__title .breadcrumbs a{padding: 0 0.35rem 0 0; cursor: pointer; font-size: 0.8rem; font-weight: 900;
@@ -245,7 +248,7 @@ section#selector .selector__body .selector_options_wrapper .option > span{color:
 section#selector .selector__footer{width: 100%; height: 70px; position: relative; background: transparent;}
 
 
-section#selector .selector__body .selector__add{width: 80%; height: 100%; display: flex; margin: 0 auto 0 auto; overflow-x: hidden; overflow-y: auto; flex-direction: column; align-items: center;}
+section#selector .selector__body .selector__add{width: 100%; max-width: 1300px; height: 100%; display: flex; margin: 0 auto 0 auto; overflow-x: hidden; overflow-y: auto; flex-direction: column; align-items: center;}
 section#selector .selector__body .selector__add p{text-align: center; color: white; font-weight: 700;}
 section#selector .selector__body .selector__add .logo-app{width: 150px; height: 150px; }
 section#selector .selector__body .selector__add .logo-app img{height: 100%; width: auto; transition: ease .3s; -webkit-transition: ease .3s;}
@@ -487,8 +490,6 @@ a.btn-large:hover{color:white; background: rgb(var(--primary-color));}
 
 @media screen and (max-width : 992px) {
     h1{font-size: 1.5rem;}
-
-
     ::-webkit-scrollbar {width: 0px;background: transparent;}
     header{width: 100%; left: 0;}
     main{padding: 70px 0 0 0; overflow-y: hidden;}
@@ -511,12 +512,12 @@ a.btn-large:hover{color:white; background: rgb(var(--primary-color));}
     header .header__wrapper .right .logged-user .user > span{color:white;}
     /* Page */
       /* Header */
-      main .page .header{padding: 0; margin: 0;}
+      main .page .header{padding: 0; margin: 0;  justify-content: center;}
       main .page .header .header__title{flex: 1 1 100%; margin: 0 0 0.25em 0;}
       main .page .header .header__toolbar{ padding:0.25em ; margin: 0 0.5em 0.25em 0.5em; flex-direction: row; overflow-y: hidden; overflow-x: auto;}
       main .page .header .header__toolbar::-webkit-scrollbar { display: none; }
       main .page .header .header__toolbar .header__btn{ white-space: nowrap; position: relative;}
-      main .page .header .header__title > .title {padding: 0 0.2em 0 0.2em; height: 60px; background: rgb(var(--dark));}
+      main .page .header .header__title > .title {padding: 0 0.2em 0 0.2em; height: 60px; background: rgb(var(--dark)); color: white;}
       /* Content */
       section.page__content{ padding: 0 0.7em 0 0.7em;}
 
@@ -552,17 +553,16 @@ a.btn-large:hover{color:white; background: rgb(var(--primary-color));}
 
     section#selector .selector__body{width: 100%; padding: 0.1em;}
     section#selector .selector__body .selector_options_wrapper{padding: 0;}
-    section#selector .selector__body .option{margin: 1em;}
-    section#selector .selector__body .option > i{font-size: 80px;}
+    section#selector .selector__body .selector_options_wrapper .option{margin: 1em;}
+    section#selector .selector__body .selector_options_wrapper .option > i{font-size: 80px;}
 
-    section#selector .selector__body .selector__add{width: 100%; padding: 0.5em;}
-    section#selector .selector__body .selector__add .hidden_inputs{padding: 0.1em;}
+    section#selector .selector__body .selector__add{width: 100%; padding: 0.1em;}
+    section#selector .selector__body .selector__add .hidden_inputs{padding: 0;}
 
 }
 
 @media screen and (max-width : 768px) {
   main{padding: 70px 0 0 0; overflow-y: hidden;}
-  main .page .header{ justify-content: center;}
 
   section#login .login_wrapper > .right {height: 100%;padding: 0.5em;}
   section#login .login_wrapper .right > .login-area{ padding: 0 0.5em 0 0.5em; flex-wrap: wrap; justify-content: center;}
@@ -576,10 +576,8 @@ a.btn-large:hover{color:white; background: rgb(var(--primary-color));}
 
 @media screen and (max-width : 600px) {
   main{padding: 70px 0 0 0; overflow-y: hidden;}
-  main .page .header{ justify-content: center;}
 
-
-  section#selector .selector__body .option{width:250px; height: 250px;}
+  section#selector .selector__body .selector_options_wrapper .option{width:250px; height:250px; margin: 1em;}
 
 }
 

@@ -36,7 +36,7 @@ switch($a)
         $check = $Group->addGroup();
         if($check){
             $responseObj->status = true;
-            $responseObj->message = "<i class='icon fa-smile-beam'></i> Tudo certo, seu grupo foi criado com sucesso!.";
+            $responseObj->message = "<i class='icon fa-smile-beam'></i> Tudo certo, seu grupo foi criado com sucesso!";
         }else{
             $responseObj->status = false;
             $responseObj->message = "<i class='icon fa-frown'></i> Estamos com problemas, tente novamente mais tarde.";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 25-Jul-2020 às 19:22
+-- Tempo de geração: 25-Jul-2020 às 23:20
 -- Versão do servidor: 8.0.17
 -- versão do PHP: 7.3.10
 
@@ -70,7 +70,11 @@ CREATE TABLE `log` (
 --
 
 INSERT INTO `log` (`id`, `type`, `agent`, `module`, `message`, `date`, `file`) VALUES
-(2, 1, 'SYSTEM', 'addUser()', 'Column \'userName\' cannot be null\nErro ao inserir informações no banco de dados.', '2020-07-15 21:46:07', 'D:\\AppServ\\www\\gestao_republica_2\\class\\User.class.php');
+(2, 1, 'SYSTEM', 'addUser()', 'Column \'userName\' cannot be null\nErro ao inserir informações no banco de dados.', '2020-07-15 21:46:07', 'D:\\AppServ\\www\\gestao_republica_2\\class\\User.class.php'),
+(4, 1, 'SYSTEM', 'Group::addGroup()', 'Column \'groupOwner\' cannot be null', '2020-07-25 20:01:45', 'D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php'),
+(5, 1, 'SYSTEM', 'Group::addGroup()', 'mysqli_sql_exception: Column \'groupOwner\' cannot be null in D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php:46\nStack trace:\n#0 D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php(46): mysqli_stmt->execute()\n#1 D:\\AppServ\\www\\gestao_republica_2\\modules\\Group.php(35): Group->addGroup()\n#2 {main}', '2020-07-25 20:04:10', 'D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php'),
+(6, 1, 'SYSTEM', 'Group::addGroup()', 'mysqli_sql_exception: Column \'groupType\' cannot be null in D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php:46\nStack trace:\n#0 D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php(46): mysqli_stmt->execute()\n#1 D:\\AppServ\\www\\gestao_republica_2\\modules\\Group.php(36): Group->addGroup()\n#2 {main}', '2020-07-25 20:06:38', 'D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php'),
+(8, 1, 'SYSTEM', 'Group::addGroup()', 'mysqli_sql_exception: Column \'groupType\' cannot be null in D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php:46\nStack trace:\n#0 D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php(46): mysqli_stmt->execute()\n#1 D:\\AppServ\\www\\gestao_republica_2\\modules\\Group.php(36): Group->addGroup()\n#2 {main}', '2020-07-25 20:09:04', 'D:\\AppServ\\www\\gestao_republica_2\\class\\Group.class.php');
 
 -- --------------------------------------------------------
 
@@ -132,13 +136,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT de tabela `group_`
 --
 ALTER TABLE `group_`
-  MODIFY `groupId` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `groupId` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restrições para despejos de tabelas
